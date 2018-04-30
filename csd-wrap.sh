@@ -1,5 +1,7 @@
 #!/bin/sh
 #set -x
+# DON'T FORGET to make this file
+# executable. (chmod +x)
 
 platform_version="x86x64"
 device_type="Linux-x86"
