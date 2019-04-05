@@ -50,7 +50,7 @@ for i in $requires; do command -v $i >/dev/null 2>&1 || { echo >&2 "$i not found
 
 channels=$(curl "https://zattoo.com/ch/sender/" | \
            grep "/watch/" | \
-           awk -F'"' '{print $2 $4}' | \
+           awk -F'"' '{print $2 $6}' | \
            sed 's/Stream/@ /g;s/\/watch\///g;' | \
            sort -u -t@ -k2 | \
            sort -u -t@ -k1 | \
