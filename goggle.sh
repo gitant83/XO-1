@@ -49,9 +49,9 @@ for i in $requires; do command -v $i >/dev/null 2>&1 || { echo >&2 "$i not found
 #################################################
 
 channels=$(curl "https://zattoo.com/ch/sender/" | \
-           grep "/watch/" | \
+           grep "/live/" | \
            awk -F'"' '{print $2 $6}' | \
-           sed 's/Stream/@ /g;s/\/watch\///g;' | \
+           sed 's/Stream/@ /g;s/\/live\///g;' | \
            sort -u -t@ -k2 | \
            sort -u -t@ -k1 | \
            sed 's/^/"/g;s/ @/"/g;s/ /_/g;s/"_/" /g;' )
@@ -72,7 +72,7 @@ do
   #############################
   # Get available formats
   #############################
-  fmts=$(youtube-dl --username $user --password $pwd "https://zattoo.com/watch/$choice" -F | \
+  fmts=$(youtube-dl --username $user --password $pwd "https://zattoo.com/channels?channel=$choice" -F | \
          awk '{print $1 " " $2 " " $3}' | \
          awk '/format code/{y=1;next}y' #prints everything after "format code"
   )
@@ -90,7 +90,7 @@ do
   #############################
   # Watch channel
   #############################
-  youtube-dl --username $user --password $pwd "https://zattoo.com/watch/$choice" -f $fmt_choice -o - | $player -
+  youtube-dl --username $user --password $pwd "https://zattoo.com/channels?channel=$choice" -f $fmt_choice -o - | $player -
 
 done
 
